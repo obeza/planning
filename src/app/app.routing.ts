@@ -3,7 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 
 function loadPlanningModule(): any {
   //return PlanningModule;
-    return Promise.resolve(require("./planning/layout/layout.module")["PlanningModule"]);
+    return Promise.resolve(require("./planning/planning.module")["PlanningModule"]);
 }
 
 function loadLoginModule(){

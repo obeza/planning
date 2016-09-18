@@ -1,0 +1,8 @@
+<div class="sidebar">
+  <div class="list-group table-of-contents">
+
+    <a *ngFor="let item of menu" class="list-group-item" routerLink="{{ item.lien }}" routerLinkActive="active">{{ item.titre }}</a>
+
+  </div>
+</div>
+
