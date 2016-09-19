@@ -1,0 +1,35 @@
+<ul class="breadcrumb">
+  <li><a routerLink="/planning/utilisateurs">Utilisateurs</a></li>
+  <li class="active">Invitation</li>
+</ul>
+
+<div class="bar">
+  <a routerLink="/planning/utilisateurs" class="btn btn-link">
+  <span class="glyphicon glyphicon-remove-circle bt-add" aria-hidden="true"></span>
+</a>
+</div>
+
+<div class="row">
+  <div class="col-md-8 col-md-offset-2">
+    <div class="invitation">
+      <form (ngSubmit)="onSubmit()" novalidate #emailForm="ngForm">
+      <div class="form-group">
+        <div class="titre">Invitation par email</div>
+        <label for="email">Email address</label>
+        <input 
+          type="email" 
+          class="form-control" 
+          [(ngModel)]="email"
+          name="email" 
+          placeholder="Email"
+          required
+         pattern="^\w+([.-]?\w+)*@\w+([.-]?\w+)*(.\w{2,3})+$"
+        >
+      </div>
+      <div class="texte">L'utilisateur recevra une invitation à s'enregistrer.</div>
+
+      <button [disabled]="!emailForm.valid" type="submit" class="btn btn-primary btn-block ">Submit</button>
+    </form>
+    </div>
+  </div>
+</div>

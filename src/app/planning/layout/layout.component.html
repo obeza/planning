@@ -1,1 +1,12 @@
-<router-outlet></router-outlet>
+<comp-topbar></comp-topbar>
+
+<comp-sidebar></comp-sidebar>
+<div class="conteneur">
+    
+    <div class="content">
+        <router-outlet></router-outlet>
+    </div>
+</div>
+
+
+<simple-notifications [options]="options"></simple-notifications>

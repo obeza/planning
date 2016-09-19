@@ -10,25 +10,46 @@ export class SidebarComponent implements OnInit {
     private menu = [
         { 
             titre:"Accueil",
-            lien:"/planning"
+            lien:"/planning",
+            active:true
         },
         { 
-            titre:"Planning",
-            lien:"/planning/planning"
+            titre:"Calendrier",
+            lien:"/planning/calendrier",
+            active:true
         },
         { 
             titre:"Commerciaux",
-            lien:"/planning/commerciaux"
-        },
+            lien:"/planning/commerciaux",
+            active:true
+        }
+                        
+    ];
+
+    private menuAdmin = 
         { 
             titre:"Utilisateurs",
-            lien:"/planning/utilisateurs"
-        }                
-    ]
+            lien:"/planning/utilisateurs",
+            active:false
+        }
+    
+
+    private userInfos:{};
 
   constructor() { }
 
   ngOnInit() {
+      this.loadUserInfos();
+  }
+
+  loadUserInfos(){
+    this.userInfos = JSON.parse(localStorage.getItem('user'));
+    console.log( this.userInfos );
+    if ( this.userInfos ){
+        if (this.userInfos['groupe']=='admin')
+            this.menu.push( this.menuAdmin );
+    }
+      
   }
 
 }

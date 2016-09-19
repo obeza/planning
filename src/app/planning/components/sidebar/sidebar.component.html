@@ -1,7 +1,14 @@
 <div class="sidebar">
   <div class="list-group table-of-contents">
 
-    <a *ngFor="let item of menu" class="list-group-item" routerLink="{{ item.lien }}" routerLinkActive="active">{{ item.titre }}</a>
+    <a 
+      *ngFor="let item of menu" 
+      class="list-group-item" 
+      routerLink="{{ item.lien }}" 
+      routerLinkActive="active"
+      [routerLinkActiveOptions]="{exact: item.active }"
+    >{{ item.titre }}      
+    </a>
 
   </div>
 </div>
