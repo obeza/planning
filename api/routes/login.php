@@ -29,7 +29,8 @@ Flight::route('POST /login', function(){
                 'user' => array(
                     'prenom' => $user->prenom,
                     'nom' => $user->nom,
-                    'groupe' => $user->groupe
+                    'groupe' => $user->groupe,
+                    'id' => $user->id
                 )
             );
             

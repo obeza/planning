@@ -20,7 +20,7 @@ export class SidebarComponent implements OnInit {
         },
         { 
             titre:"Commerciaux",
-            lien:"/planning/commerciaux",
+            lien:"/planning/comptes",
             active:true
         }
                         

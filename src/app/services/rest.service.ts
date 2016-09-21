@@ -9,21 +9,15 @@ export class RestService {
 
   private apiLien = "http://localhost:8888/laboratoire/angular2/planning/api/";
 
-  constructor( public http:Http) {
-    //this.http=http;
-  }
+  constructor( public http:Http) {}
 
-  getList( dossier ){
+  get(dossier, id?){
     let headers = new Headers();
     let token = localStorage.getItem('token');
     headers.append('Authorization', token);
-
-    let url = this.apiLien + dossier ;
-    return  this.http.get( url, { headers } ).map( res => res.json() );
-  }
-
-  get(dossier, id){
-    let url = this.apiLien + dossier + '/' + id ;
+    let url = this.apiLien + dossier + '/';
+    if (id)
+      url = url + id;
     return  this.http.get( url )
       .map( res => res.json() );
   }

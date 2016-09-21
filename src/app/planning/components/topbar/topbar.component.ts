@@ -8,9 +8,10 @@ import { Router } from '@angular/router';
 })
 export class TopbarComponent implements OnInit {
 
-  private user = {
+  public user = {
     prenom:'',
-    nom:' '
+    nom:' ',
+    id:0
   };
   constructor(
     private _router:Router

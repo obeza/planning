@@ -49,6 +49,10 @@ function algo(){
     return 'tiger192,3';
 }
 
+function checkToken(){
+    return;
+}
+
 Flight::start();
 
 ?>

@@ -1,0 +1,108 @@
+
+<div class="bar">
+  <button (click)="showDialog()" class="btn btn-link">
+  <span class="glyphicon glyphicon-plus-sign bt-add" aria-hidden="true"></span>
+</button>
+</div>
+
+<form (ngSubmit)="onSubmit()" novalidate>
+<div class="container">
+  <div class="row">
+    <div class="col-md-5">
+
+      <div class="panel panel-default">
+  <div class="panel-heading">
+    <h4>Les commerciaux</h4>
+  </div>
+
+  <div class="panel-body">
+    <ul class="list-group">
+        
+      <li class="list-group-item groupe-padding" *ngFor="let item of comptes;let key=index" [ngClass]="{back: item.selectA }">
+        <label class="label-com">
+        {{ item.prenom }} {{ item.nom }} {{ item.favoris }}
+        
+          <input class="hide" type="checkbox" name="item" [(ngModel)]="item.selectA">
+
+        </label>
+      </li>
+
+    </ul>
+  </div>
+
+</div>
+    </div>
+    <div class="col-md-1">
+      <div>
+        <button type="button" (click)="addFavoris()" class="btn btn-lg">
+      <span class=" glyphicon glyphicon-chevron-right"></span>
+    </button>
+      </div>
+      <div class="space"></div>
+      <div>
+<button type="button" (click)="suppFavoris()" class="chevron-gauche btn btn-lg">
+      <span class=" glyphicon glyphicon-chevron-left"></span>
+    </button>
+      </div>
+    </div>
+
+    <div class="col-md-5">
+
+      <div class="panel panel-default">
+  <div class="panel-heading">
+    <h4>Les commerciaux sélectionnés</h4>
+  </div>
+  <div class="panel-body">
+
+      <ul class="list-group">
+    
+        <li class="list-group-item groupe-padding" *ngFor="let itemB of favoris;let key=index" [ngClass]="{back: itemB.selectB }">
+        <label class="label-com">
+        {{ itemB.prenom }} {{ itemB.nom }} {{ itemB.selectB }}
+        
+          <input class="hide" type="checkbox" name="itemB" [(ngModel)]="itemB.selectB">
+
+        </label>
+      </li>
+</ul>
+</div>
+    </div>
+  </div>
+</div>
+</div>
+</form>
+
+<!-- dialog creation de compte -->
+<div class="dialog" *ngIf="compteDialog">
+  <div class="container">
+  <div class="dialog-back"></div>
+    <div class="row">    
+        <div class="col-md-6 col-md-offset-3">
+            <div class="card">
+
+<form (ngSubmit)="onSubmit()" #compteForm="ngForm">                
+                <div class="card-content">
+  <div class="form-group">
+    <label for="prenom">Prénom</label>
+    <input type="text" [(ngModel)]="compte.prenom" name="prenom"  class="form-control" id="prenom" placeholder="Prénom" required>
+  </div>
+  <div class="form-group">
+    <label for="nom">Nom</label>
+    <input type="text" [(ngModel)]="compte.nom" name="nom"  class="form-control" id="nom" placeholder="Nom" required>
+  </div>
+  <div class="form-group">
+    <label for="email">Email</label>
+    <input type="email" [(ngModel)]="compte.email" name="email" class="form-control" id="email" placeholder="Email" required pattern="^\w+([.-]?\w+)*@\w+([.-]?\w+)*(.\w{2,3})+$">
+    <div class="error" *ngIf="showError">Cet email est déjà enregistré.</div>
+  </div>
+                </div><!-- card content -->
+                <div class="card-action">          
+                    <button (click)="hideDialog()" type="button" class="btn btn-default">Annuler</button>
+                    <button type="submit" class="btn btn-primary">Creer le compte</button>
+                </div><!-- card actions -->
+</form>
+
+            </div>
+        </div>
+    </div>
+</div>

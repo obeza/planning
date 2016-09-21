@@ -30,7 +30,7 @@ export class UtilisateursComponent implements OnInit {
   }
 
   loadUser(){
-    this._rest.getList('users')
+    this._rest.get('users')
       .subscribe( (res)=>{
         //console.log('users', res);
         this.users = res.users;

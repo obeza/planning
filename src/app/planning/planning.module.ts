@@ -4,11 +4,12 @@ import { LayoutComponent } from './layout/layout.component';
 import { DashbordComponent } from './pages/dashbord/dashbord.component';
 
 import { RouterModule } from '@angular/router';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 
 import { SimpleNotificationsModule } from 'angular2-notifications';
 import { EqualValidator } from './../directives/equal-validator.directive';
+import { UtilisateurService } from './../services/utilisateur.service'
 
 import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { TopbarComponent } from './components/topbar/topbar.component';
@@ -17,6 +18,8 @@ import { CalendrierComponent } from './pages/calendrier/calendrier.component';
 import { InvitationComponent } from './pages/utilisateurs/invitation/invitation.component';
 
 import { RestService } from './../services/rest.service';
+import { ComptesComponent } from './pages/comptes/comptes.component';
+import { FavorisPipe } from './pages/comptes/favoris.pipe';
 
 const planningRoute = [
   { path: '', component: LayoutComponent, children: [
@@ -35,6 +38,10 @@ const planningRoute = [
       {
           path: 'utilisateurs/invitation',
           component : InvitationComponent
+      },
+      {
+          path: 'comptes',
+          component : ComptesComponent
       }
   ]  }
 ];
@@ -43,6 +50,7 @@ const planningRoute = [
     imports:[
         CommonModule, 
         FormsModule,
+        ReactiveFormsModule,
         HttpModule, 
         RouterModule.forChild(planningRoute), 
         SimpleNotificationsModule
@@ -55,9 +63,11 @@ const planningRoute = [
         UtilisateursComponent, 
         CalendrierComponent, 
         InvitationComponent,
-        EqualValidator
+        EqualValidator,
+        ComptesComponent,
+        FavorisPipe
     ],
-    providers:[RestService]
+    providers:[RestService, UtilisateurService]
 })
 
 export class PlanningModule {}
