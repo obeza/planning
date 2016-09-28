@@ -7,7 +7,7 @@ import { Observable } from 'rxjs/Observable';
 @Injectable()
 export class RestService {
 
-  private apiLien = "http://localhost:8888/laboratoire/angular2/planning/api/";
+  private apiLien = "api/";
 
   constructor( public http:Http) {}
 
