@@ -22,12 +22,4 @@ export class LayoutComponent implements OnInit {
   ngOnInit() {
   }
 
-  showLoadingAlert(){
-    document.getElementById("loading").style.bottom = "30px";
-  }
-
-  hideLoadingAlert(){
-    document.getElementById("loading").style.bottom = "-100px";
-  }
-
 }

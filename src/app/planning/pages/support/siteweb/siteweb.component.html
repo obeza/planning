@@ -1,0 +1,43 @@
+<p>
+  siteweb works!
+</p>
+<div class="container">
+  <div class="row">
+    <div class="col-md-8 col-md-offset-2">
+      <form class="form-inline">
+      <div class="form-group">
+        <label for="sitewebSelect">Ajouter un siteweb : </label>
+        <input type="text" class="form-control format-select" id="sitewebSelect" placeholder="le titre du site web" [(ngModel)]="siteweb" name="siteweb">
+      </div>
+      <button type="submit" (click)="ajouterSiteweb()" class="btn btn-default">Ajouter</button>
+      </form>
+    </div>
+    <div class="col-md-8 col-md-offset-2 espace">
+      <div class="list-group">
+        <button 
+          type="button" 
+          class="list-group-item"
+          *ngFor="let item of sitewebs; let key=index"
+          (click)="modifierFormat(key)"
+        >{{ item.titre }}</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="dialog" *ngIf="showDialog">
+  <div class="dialog-back"></div>
+  <div class="dialog-box">
+    <legend>Format</legend>
+      <form class="form">
+      <div class="form-group">
+        <label for="formatSelect">Modifier le format : </label>
+        <input type="text" class="form-control" id="formatSelect" placeholder="le titre du format" [(ngModel)]="sitewebDialog.titre" name="format">
+      </div>
+      <button type="submit" (click)="sauverSiteweb()" class="btn btn-primary btn-block">Modifier</button>
+      </form>
+
+      <button (click)="fermerDialog()" class="btn btn-default btn-block bt-annuler">Annuler</button>
+      
+  </div>
+</div>

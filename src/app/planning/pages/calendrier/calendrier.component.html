@@ -1,3 +1,116 @@
-<p>
-  calendrier works!
-</p>
+<div class="bar">
+  <button (click)="showDialog()" class="btn btn-link">
+  <span class="glyphicon glyphicon-plus-sign bt-add" aria-hidden="true"></span>
+</button>
+</div>
+
+<div class="container">
+      <div class="row text-center">
+        <div class="col-md-4">
+           <div class="btn-group">
+             <div class="btn btn-primary" (click)="decrement()">
+               Précédent
+             </div>
+             <div class="btn btn-default" (click)="today()">
+               Aujourd'hui
+             </div>
+             <div class="btn btn-primary" (click)="increment()">
+               Suivant
+             </div>
+           </div>
+        </div>
+        <div class="col-md-4">
+          <h3>{{ viewDate | calendarDate:(view + 'ViewTitle'):'fr' }}</h3>
+        </div>
+        <div class="col-md-4">
+          <div class="btn-group">
+            <div>
+            Site web : 
+            <select [(ngModel)]="selectedSite" (ngModelChange)="onChangeSite($event)">
+              <option *ngFor="let item of sites;let key=index;" [value]="key">{{item.titre}}</option>
+            </select>
+          </div>
+        <div>
+            Format : 
+          <select [(ngModel)]="selectedFormat" id="format">
+            <option *ngFor="let item of formatsSelect" [value]="item.id">{{item.titre}}</option>
+          </select>
+        </div>
+
+          </div>
+        </div>
+      </div>
+      <br>
+      <div [ngSwitch]="view">
+        <mwl-calendar-month-view
+          *ngSwitchCase="'month'"
+          [viewDate]="viewDate"
+          [events]="events"
+          [activeDayIsOpen]="activeDayIsOpen"
+          (dayClicked)="dayClicked($event.day)">
+        </mwl-calendar-month-view>
+      </div>
+      <div>
+        <div>
+          <span class="case-rouge"></span> option , <span class="case-bleue"></span> ferme
+        </div>
+        
+      </div>
+    </div>
+
+<!-- dialog reservation d'une campagne -->
+<div class="dialog" [ngClass]="{'show-dialog': reservationDialog}">
+<div class="dialog-back"></div>
+  <div class="container" >
+    
+    <div class="row">    
+        <div class="col-md-6 col-md-offset-3">
+            <div class="card" [ngClass]="{'show': reservationDialog}">
+
+<form (ngSubmit)="onSubmit()" #reservationForm="ngForm">                
+                <div class="card-content">
+
+  <div class="form-group">
+    <label for="title">Nom de la campagne</label>
+    <input type="text" [(ngModel)]="reservation.title" name="title" class="form-control" id="title" placeholder="nom de la campagne" required>
+  </div>
+
+  <div class="form-group">
+    <label for="start">Date de début</label>
+    <input type="date" [(ngModel)]="reservation.start" name="start"  class="form-control" id="start" required>
+  </div>
+
+  <div class="form-group">
+    <label for="end">Date de fin</label>
+    <input type="date" [(ngModel)]="reservation.end" name="end"  class="form-control" id="end" required>
+  </div>
+
+  <div class="form-group">
+    <label for="compte">Commercial</label>
+    <select [(ngModel)]="reservation.compte" class="form-control" name="compte" id="compte">
+      <option *ngFor="let item of comptes" [value]="item.id">
+        {{item.prenom}} {{item.nom}}
+      </option>
+    </select>
+  </div>
+
+    <div class="form-group">
+      <label>Statut de la campagne</label>
+      <div class="form-control">
+        <label><input type="radio" [(ngModel)]="reservation.statut" [value]="'option'" name="statut"  id="statut"> Option</label>
+        <label><input type="radio" [(ngModel)]="reservation.statut" [value]="'ferme'"  name="statut"  id="statut"> Ferme</label>
+      </div>
+      
+  </div>
+                </div><!-- card content -->
+                <div class="card-action">          
+                    <button (click)="hideDialog()" type="button" class="btn btn-default">Annuler</button>
+                    <button type="submit" class="btn btn-primary">Créer la réservation</button>
+                </div><!-- card actions -->
+</form>
+
+            </div>
+        </div>
+    </div>
+  </div>  
+</div>

@@ -1,0 +1,61 @@
+<p>
+  config works!
+</p>
+
+<div class="row">
+  <div class="col-md-10 col-md-offset-1">
+    <div>
+      <label>Choisissez un site web :</label>
+      <select name="role" [(ngModel)]="selectedWebId" (ngModelChange)="onChange($event)">
+        <option *ngFor="let item of sitewebs;let key=index" [value]="item.id">  
+        {{item.titre}}
+        </option>
+      </select>
+    </div>
+  </div>
+
+  <div class='col-md-6'>
+
+    <div class="panel panel-success">
+            <div class="panel-heading">Available to drag</div>
+            <div class="panel-body">
+              
+              <div class="loading" *ngIf="loading.formats"><img src="images/ajax-loader.gif" width="24px">Chargement ...</div>
+
+                <div 
+                  *ngFor="let item of choixFormat;let key=index" 
+                  class="panel panel-default drag-cursor" 
+                  dnd-draggable 
+                  [dragData]="key"
+                  [dragEnabled]="!item.select"
+                  [ngClass]="{'selected': item.select}"
+                >
+                    <div class="panel-body">
+                      {{ item.titre }}
+                      <span class="glyphicon glyphicon-move close" aria-hidden="true"></span>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+
+    </div>
+  <div class='col-md-6'>
+        <div dnd-droppable class="panel panel-info" (onDropSuccess)="transferDataSuccess($event)">
+            <div class="panel-heading">Place to drop</div>
+            <div class="panel-body">
+              
+              <div class="panel panel-default"
+                    *ngFor="let data of configSelect.formats; let key=index;">
+                    <div class="panel-body">
+                      {{ data.titre }}
+                      <button (click)="supprimerFormat(key)" type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    </div>
+                    
+                </div>
+             
+            </div>
+        </div>
+    </div>
+  </div>
+

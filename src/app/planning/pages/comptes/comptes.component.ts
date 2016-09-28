@@ -1,17 +1,17 @@
 import { Component, OnInit, style } from '@angular/core';
 
 import { RestService } from './../../../services/rest.service';
-import { LayoutComponent } from  './../../layout/layout.component';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 
 import { UtilisateurService } from './../../../services/utilisateur.service';
+
 
 
 @Component({
   selector: 'app-comptes',
   templateUrl: './comptes.component.html',
   styleUrls: ['./comptes.component.styl'],
-  providers:[ RestService, LayoutComponent, UtilisateurService ],
+  providers:[ RestService, UtilisateurService ],
 })
 export class ComptesComponent implements OnInit {
 
@@ -31,7 +31,6 @@ export class ComptesComponent implements OnInit {
 
   constructor(
     private _rest:RestService,
-    private _layout:LayoutComponent,
     private _user:UtilisateurService
   ) { }
 
@@ -143,19 +142,19 @@ export class ComptesComponent implements OnInit {
 
   onSubmit(){
     console.log( this.compte );
-    this._layout.showLoadingAlert();
+    this._rest.showLoadingAlert();
     this._rest.post('compte', this.compte )
       .then( (res)=>{
         console.log('res', res);
 
         if (res['msg']=='error'){
           this.showError = true;
-          this._layout.hideLoadingAlert();
+          this._rest.hideLoadingAlert();
         }
 
 
         if ( res['msg']=='ok'){
-          this._layout.hideLoadingAlert();
+          this._rest.hideLoadingAlert();
           this.hideDialog();
           this.compte = {
             prenom:'',

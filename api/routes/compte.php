@@ -19,8 +19,8 @@ Flight::route('GET /comptes/@userId', function( $userId ){
         ->where('userId', $userId)
         ->find_array();
     
-        if ( !empty($favoris))
-            $favs = json_decode( $favoris[0]['favoris'] );
+    if ( !empty($favoris))
+        $favs = json_decode( $favoris[0]['favoris'] );
 
 
     for ($i = 0; $i<count($comptes); $i++) {

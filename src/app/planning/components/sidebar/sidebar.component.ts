@@ -19,19 +19,36 @@ export class SidebarComponent implements OnInit {
             active:true
         },
         { 
+            titre:"Historique",
+            lien:"/planning/historique",
+            active:true
+        },
+        { 
             titre:"Commerciaux",
             lien:"/planning/comptes",
             active:true
+        },
+        { 
+            titre:"Siteweb",
+            lien:"/planning/siteweb",
+            active:true
         }
+          
                         
     ];
 
-    private menuAdmin = 
+    private menuAdmin = [
         { 
             titre:"Utilisateurs",
             lien:"/planning/utilisateurs",
             active:false
+        },
+        { 
+            titre:"Supports",
+            lien:"/planning/support/config",
+            active:false
         }
+    ]
     
 
     private userInfos:{};
@@ -46,8 +63,10 @@ export class SidebarComponent implements OnInit {
     this.userInfos = JSON.parse(localStorage.getItem('user'));
     console.log( this.userInfos );
     if ( this.userInfos ){
-        if (this.userInfos['groupe']=='admin')
-            this.menu.push( this.menuAdmin );
+        if (this.userInfos['groupe']=='admin'){
+            console.log('admin detect');
+            this.menu = this.menu.concat( this.menuAdmin );
+        }
     }
       
   }

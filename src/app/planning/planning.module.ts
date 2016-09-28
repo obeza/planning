@@ -2,8 +2,8 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { LayoutComponent } from './layout/layout.component';
 import { DashbordComponent } from './pages/dashbord/dashbord.component';
-
-import { RouterModule } from '@angular/router';
+import { ModuleWithProviders } from '@angular/core';
+import { Routes, RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 
@@ -19,7 +19,16 @@ import { InvitationComponent } from './pages/utilisateurs/invitation/invitation.
 
 import { RestService } from './../services/rest.service';
 import { ComptesComponent } from './pages/comptes/comptes.component';
-import { FavorisPipe } from './pages/comptes/favoris.pipe';
+
+import {CalendarModule, CalendarEventTitle, CalendarDateFormatter} from './../modules/angular2-calendar';
+
+import { SitewebComponent } from './pages/siteweb/siteweb.component'
+
+const myModules = {
+    support : ()=>{
+    return Promise.resolve(require( "./pages/support/support.module" )[ "SupportModule" ]);
+  }
+};
 
 const planningRoute = [
   { path: '', component: LayoutComponent, children: [
@@ -42,8 +51,16 @@ const planningRoute = [
       {
           path: 'comptes',
           component : ComptesComponent
+      },
+      {
+          path: 'support',
+          loadChildren: myModules.support
+      },
+      {
+          path: 'siteweb',
+          component: SitewebComponent
       }
-  ]  }
+  ]}
 ];
 
 @NgModule({
@@ -53,7 +70,8 @@ const planningRoute = [
         ReactiveFormsModule,
         HttpModule, 
         RouterModule.forChild(planningRoute), 
-        SimpleNotificationsModule
+        SimpleNotificationsModule,
+        CalendarModule
     ],
     declarations:[
         LayoutComponent, 
@@ -64,10 +82,11 @@ const planningRoute = [
         CalendrierComponent, 
         InvitationComponent,
         EqualValidator,
-        ComptesComponent,
-        FavorisPipe
+        ComptesComponent,     
+        SitewebComponent
     ],
-    providers:[RestService, UtilisateurService]
+    providers:[RestService, UtilisateurService, CalendarEventTitle,
+    CalendarDateFormatter]
 })
 
 export class PlanningModule {}

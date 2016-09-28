@@ -16,7 +16,6 @@ const myModules = {
 
 import { SenregistrerComponent } from './modules/senregistrer/senregistrer.component';
 
-
 const appRoutes: Routes = [
   {path: '', redirectTo: 'login', pathMatch: 'full'},
   { path: 'login', loadChildren: myModules.login },

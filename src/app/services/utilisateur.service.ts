@@ -10,12 +10,13 @@ export class UtilisateurService {
   };
 
   constructor() { 
-    this.getInfos();
+    this.setInfos();
   }
 
-  getInfos(){
+  setInfos(){
     let infos = JSON.parse( localStorage.getItem('user') );
     this.user = infos;
+    console.log('user get infos')
     //return this.user;
   }
 

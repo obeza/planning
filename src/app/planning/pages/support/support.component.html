@@ -1,0 +1,39 @@
+
+<div class="row support">
+  <div class="col-md-10 col-md-offset-1">
+
+  <!-- Nav tabs -->
+  <ul class="nav nav-tabs" role="tablist">
+    <li role="presentation" routerLinkActive="active">
+      <a 
+      
+      class="list-group-item" 
+      routerLink="config"     
+      
+      aria-controls="home" role="tab" data-toggle="tab"
+      >Configuration</a>
+    </li>
+    <li role="presentation" routerLinkActive="active">
+      <a 
+      class="list-group-item" 
+      routerLink="siteweb"
+      aria-controls="profile" role="tab" data-toggle="tab"
+      >Site web</a></li>
+    <li role="presentation" routerLinkActive="active">
+      <a 
+      [routerLinkActiveOptions]="{exact: true }"
+      routerLinkActive="active"
+      class="list-group-item" 
+      routerLink="formats"
+      aria-controls="profile" role="tab" data-toggle="tab"
+      >Formats</a></li>
+    
+  </ul>
+
+  <!-- Tab panes -->
+  <div class="tab-content support-box">
+    <router-outlet></router-outlet>
+  </div>
+  </div>
+</div>
+
