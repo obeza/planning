@@ -1,4 +1,5 @@
 <?php
+
 require 'libs/flight/Flight.php';
 require 'libs/idiorm.php';
 
@@ -14,7 +15,6 @@ if ( devStatut() ){
     header('Access-Control-Allow-Origin: http://localhost:4200');
     header("Access-Control-Allow-Headers: Authorization, Content-Type");
     header('Access-Control-Allow-Methods: GET,PUT,POST,DELETE,OPTIONS');
-
 
     // respond to preflights
     if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
@@ -36,7 +36,7 @@ function getJson(){
 
 function createRandomPassword() { 
 
-    $chars = "abcdefghijkmnopqrstuvwxyz023456789"; 
+    $chars = "abcdefghijkmnopqrstuvwxyz0123456789"; 
     srand((double)microtime()*1000000); 
     $i = 0; 
     $pass = '' ; 
@@ -58,12 +58,23 @@ function devSleep(){
     return;
 }
 
-function algo(){
-    return 'tiger192,3';
-}
-
 function checkToken(){
-    return;
+
+    $headers = apache_request_headers();
+
+    if (array_key_exists("authorization", $headers)) {
+
+        $token = $headers['authorization'];
+
+        $check = ORM::for_table('users')
+            ->where('token', $token)
+            ->find_one();
+        
+        if (!empty($check))
+            return;
+    }
+
+    Flight::halt(401);
 }
 
 Flight::start();

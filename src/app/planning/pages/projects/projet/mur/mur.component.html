@@ -1,0 +1,34 @@
+
+<div class="header">
+  <h3>{{ projet.titre }}</h3>
+  <p class="description">{{ projet.description }}</p>
+</div>
+
+<div class="todolist">
+  
+  <div class="todo" *ngFor="let item of todos;let key=index">
+    <label class="label" *ngIf="!item.inputShow">
+    <span class="glyphicon glyphicon-option-vertical" aria-hidden="true"></span>
+      <input type="checkbox" (click)="onCheckTodo(key, item.done)" [(ngModel)]="item.done" name="done"> <span [ngClass]="{done: item.done }">{{ item.tache }}</span>
+    </label>
+
+    <form *ngIf="item.inputShow" (ngSubmit)="onUpdateTodo(key)" #todoUpdateForm="ngForm">
+      <input [(ngModel)]="item.tache" type="text" class="form-control" name="todo" id="inputTodo" placeholder="tache" required>
+    </form>
+
+    <span *ngIf="!item.inputShow" (click)="onDeleteTodo(key)" class="glyphicon glyphicon-trash right" aria-hidden="true"></span>
+    <span *ngIf="!item.inputShow" (click)="onModifierTodo(key)" class="glyphicon glyphicon-pencil right" aria-hidden="true"></span>
+  </div>
+</div>
+  <div class="todo-ajouter-form" *ngIf="showTodoForm" >
+    <form (ngSubmit)="onSubmitTodo()" #todoForm="ngForm">
+      <input [(ngModel)]="todo.tache" type="text" class="form-control" name="todo" id="inputTodo" placeholder="tache" required>
+      <div class="form-group">
+      <button (click)="onAnnulerTodo()" type="button" class="btn btn-default">Annuler</button>
+      <button [disabled]="!todoForm.valid" type="submit" class="btn btn-primary">Ajouter</button>
+    </div>
+    </form>
+  </div>
+  <div class="todo-ajouter" (click)="onAjouterTodo()" *ngIf="!showTodoForm">
+    Ajouter une tache
+  </div>

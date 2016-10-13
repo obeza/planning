@@ -1,8 +1,6 @@
 <?
 
 Flight::route('GET /formats', function(){
-
-    sleep(2);
     
     $formats = ORM::for_table('formats')
         ->order_by_asc('titre')

@@ -9,6 +9,21 @@
       [routerLinkActiveOptions]="{exact: item.active }"
     >{{ item.titre }}      
     </a>
+    <div (click)="onConfigMenu()" class="list-group-item config">
+      <span *ngIf="!showConfigMenu" class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+      <span *ngIf="showConfigMenu" class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span>
+       Configuration
+    </div>
+    <div *ngIf="showConfigMenu">
+    <a
+      *ngFor="let item of menuConfiguration" 
+      class="list-group-item" 
+      routerLink="{{ item.lien }}" 
+      routerLinkActive="active"
+      [routerLinkActiveOptions]="{exact: item.active }"
+    >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ item.titre }}      
+    </a>
+    </div>
 
   </div>
 </div>

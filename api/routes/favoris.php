@@ -30,16 +30,12 @@ Flight::route('GET /favoris/@userId', function($userId){
         $formats = ORM::for_table('formats')
             ->raw_query('SELECT * FROM formats WHERE id IN ('.$selectformatIds.')')
             ->find_array();
-                
-
+            
         array_push( $data,  
             $formats
         );
 
     };
-
-    
-    
     
     $msg = array(
             'msg' => 'ok',
@@ -59,10 +55,14 @@ Flight::route('GET /favoris/formatsxxxxx/@sitewebId', function($sitewebId){
         ->find_array();
 
     $formatIds = json_decode( $supports[0]['formatIds'] );
-    $selectformatIds = implode(',', array_map('intval', $formatIds));
+    //$selectformatIds = implode(',', array_map('intval', $formatIds));
 
-    $formats = ORM::for_table('formats')
+/*    $formats = ORM::for_table('formats')
         ->raw_query('SELECT * FROM formats WHERE id IN ('.$selectformatIds.')')
+        ->find_array();*/
+    
+    $formats = ORM::for_table('formats')
+        ->where_id_in( $formatIds )
         ->find_array();
     
     $msg = array(

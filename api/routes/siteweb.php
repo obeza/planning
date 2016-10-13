@@ -1,8 +1,6 @@
 <?
 
 Flight::route('GET /siteweb', function(){
-
-    sleep(1);
     
     $siteweb = ORM::for_table('siteweb')
         ->order_by_asc('titre')
@@ -20,9 +18,6 @@ Flight::route('GET /siteweb', function(){
 
 
 Flight::route('POST /siteweb', function(){
-
-    /// ajouter check token
-    sleep(1);
 
     $data = getJson();
 

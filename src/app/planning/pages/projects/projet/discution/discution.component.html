@@ -1,0 +1,19 @@
+<p>
+  discution works!
+</p>
+
+<div class="discution" *ngFor="let item of discutions">
+  <div class="auteur"><b>{{ item.user }}</b> <span class="date">{{ item.dt_creation }}</span></div>
+  <div class="texte">
+    {{ item.texte}}
+  </div>
+  
+</div>
+
+
+    <form (ngSubmit)="onSubmitDiscution()" #discutionForm="ngForm">
+      <textarea rows="4" [(ngModel)]="discution.texte" class="form-control" name="texte" id="inputTexte" placeholder="Vous pouvez discuter ici du projet" required></textarea>
+      <div class="form-group action-bouton">
+        <button [disabled]="!discutionForm.valid" type="submit" class="btn btn-primary">Ajouter</button>
+      </div>
+    </form>

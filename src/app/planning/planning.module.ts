@@ -21,8 +21,17 @@ import { RestService } from './../services/rest.service';
 import { ComptesComponent } from './pages/comptes/comptes.component';
 
 import {CalendarModule, CalendarEventTitle, CalendarDateFormatter} from './../modules/angular2-calendar';
+import {FroalaEditorModule} from "ng2-froala-editor/ng2-froala-editor";
 
-import { SitewebComponent } from './pages/siteweb/siteweb.component'
+import { SitewebComponent } from './pages/siteweb/siteweb.component';
+import { ProjectsComponent } from './pages/projects/projects.component';
+import { AjouterComponent } from './pages/projects/ajouter/ajouter.component';
+import { ProjetComponent } from './pages/projects/projet/projet.component';
+import { MurComponent } from './pages/projects/projet/mur/mur.component';
+import { DiscutionComponent } from './pages/projects/projet/discution/discution.component';
+import { ActualiteComponent } from './pages/projects/projet/actualite/actualite.component';
+import { DocumentComponent } from './pages/projects/projet/document/document.component';
+import { EditeurComponent } from './pages/projects/projet/document/editeur/editeur.component'
 
 const myModules = {
     support : ()=>{
@@ -59,6 +68,32 @@ const planningRoute = [
       {
           path: 'siteweb',
           component: SitewebComponent
+      },
+      {
+          path: 'projects',
+          component: ProjectsComponent
+      },
+      {
+          path: 'projects/projet/:id',
+          component: ProjetComponent,
+          children:[
+            {
+                path: 'mur',
+                component: MurComponent
+            },
+            {
+                path: 'discution',
+                component: DiscutionComponent
+            },
+            {
+                path: 'actualite',
+                component: ActualiteComponent
+            },
+            {
+                path: 'document',
+                component: DocumentComponent
+            }
+          ]
       }
   ]}
 ];
@@ -71,7 +106,8 @@ const planningRoute = [
         HttpModule, 
         RouterModule.forChild(planningRoute), 
         SimpleNotificationsModule,
-        CalendarModule
+        CalendarModule,
+        FroalaEditorModule
     ],
     declarations:[
         LayoutComponent, 
@@ -83,7 +119,7 @@ const planningRoute = [
         InvitationComponent,
         EqualValidator,
         ComptesComponent,     
-        SitewebComponent
+        SitewebComponent, ProjectsComponent, AjouterComponent, ProjetComponent, MurComponent, DiscutionComponent, ActualiteComponent, DocumentComponent, EditeurComponent
     ],
     providers:[RestService, UtilisateurService, CalendarEventTitle,
     CalendarDateFormatter]

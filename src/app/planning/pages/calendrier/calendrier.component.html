@@ -32,7 +32,7 @@
           </div>
         <div>
             Format : 
-          <select [(ngModel)]="selectedFormat" id="format">
+          <select [(ngModel)]="selectedFormat" id="format" (ngModelChange)="onChangeformat($event)">
             <option *ngFor="let item of formatsSelect" [value]="item.id">{{item.titre}}</option>
           </select>
         </div>
@@ -52,7 +52,7 @@
       </div>
       <div>
         <div>
-          <span class="case-rouge"></span> option , <span class="case-bleue"></span> ferme
+          <span class="case-rouge"></span> ferme , <span class="case-bleue"></span> option
         </div>
         
       </div>
@@ -97,8 +97,8 @@
     <div class="form-group">
       <label>Statut de la campagne</label>
       <div class="form-control">
-        <label><input type="radio" [(ngModel)]="reservation.statut" [value]="'option'" name="statut"  id="statut"> Option</label>
-        <label><input type="radio" [(ngModel)]="reservation.statut" [value]="'ferme'"  name="statut"  id="statut"> Ferme</label>
+        <label><input type="radio" [(ngModel)]="reservation.statut" [value]="'option'" name="statut"  id="statut"> Option </label>
+        <label><input type="radio" [(ngModel)]="reservation.statut" [value]="'ferme'" name="statut"  id="statut"> Ferme</label>
       </div>
       
   </div>
@@ -107,6 +107,11 @@
                     <button (click)="hideDialog()" type="button" class="btn btn-default">Annuler</button>
                     <button type="submit" class="btn btn-primary">Créer la réservation</button>
                 </div><!-- card actions -->
+                <div class="card-action">
+                  <div class="alert alert-danger" *ngIf="impossible">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    Il y a un problème avec les dates sélectionnées !</div>
+                </div>
 </form>
 
             </div>

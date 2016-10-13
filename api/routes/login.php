@@ -1,5 +1,6 @@
 <?
 
+
 Flight::route('POST /login', function(){
 
     $data = getJson();
@@ -15,11 +16,11 @@ Flight::route('POST /login', function(){
         );
     } else {
 
-        $pass = hash( algo(), $data->passe);
+        $pass = sha1( $data->passe );
 
         if ( $pass == $user->passe){
 
-            $token = hash( algo(), createRandomPassword() );
+            $token = sha1( createRandomPassword() );
             $user->token = $token;
             $user->save();
 

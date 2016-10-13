@@ -13,7 +13,7 @@ export class UtilisateurService {
     this.setInfos();
   }
 
-  setInfos(){
+  private setInfos(){
     let infos = JSON.parse( localStorage.getItem('user') );
     this.user = infos;
     console.log('user get infos')

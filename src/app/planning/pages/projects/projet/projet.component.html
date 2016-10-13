@@ -1,0 +1,30 @@
+
+<div class="row support">
+  <div class="col-md-10 col-md-offset-1">
+projectId : {{ projectId }}
+  <!-- Nav tabs -->
+  <ul class="nav nav-tabs" role="tablist">
+
+    <li 
+      *ngFor="let item of tabMenu"
+      role="presentation" 
+      routerLinkActive="active" 
+      [routerLinkActiveOptions]="{exact: false }">
+      <a      
+        class="list-group-item" 
+        routerLink="{{ item.lien }}"                         
+        aria-controls="mur"
+        role="tab" 
+        data-toggle="tab"
+      >{{ item.titre }}</a>
+    </li>
+    
+  </ul>
+
+  <!-- Tab panes -->
+  <div class="tab-content support-box">
+    <router-outlet></router-outlet>
+  </div>
+  </div>
+</div>
+

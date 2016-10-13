@@ -6,7 +6,7 @@
   <div class="col-md-10 col-md-offset-1">
     <div>
       <label>Choisissez un site web :</label>
-      <select name="role" [(ngModel)]="selectedWebId" (ngModelChange)="onChange($event)">
+      <select name="role" [(ngModel)]="selectedWebId" (ngModelChange)="onChangeSite($event)">
         <option *ngFor="let item of sitewebs;let key=index" [value]="item.id">  
         {{item.titre}}
         </option>

@@ -7,19 +7,22 @@ import { Observable } from 'rxjs/Observable';
 @Injectable()
 export class RestService {
 
-  private apiLien = "api/";
+  private apiLien = "http://localhost:8888/laboratoire/angular2/planning/api/";
 
   constructor( public http:Http) {}
 
   get(dossier, id?){
     this.showLoadingAlert();
-    let headers = new Headers();
+    
     let token = localStorage.getItem('token');
+    let headers = new Headers();
     headers.append('Authorization', token);
     let url = this.apiLien + dossier + '/';
     if (id)
       url = url + id;
-    return  this.http.get( url, { headers } )
+    console.log('url rest -> ' + url)
+    return  this.http
+      .get( url, { headers } )
       .map( (res) => {
         this.hideLoadingAlert();
         return res.json();
@@ -32,8 +35,8 @@ export class RestService {
     let token = localStorage.getItem('token');
     headers.append('Authorization', token);
     
-    let url = this.apiLien + dossier ;
-
+    let url = this.apiLien + dossier
+    
     return this.http
              .post( url , JSON.stringify(data), {headers: headers})
              .toPromise()
@@ -43,6 +46,26 @@ export class RestService {
               return res.json();
             })
              .catch(this.handleError);
+  }
+
+  postJSON(dossier, data){
+    this.showLoadingAlert();
+    let headers = new Headers({
+    'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+  });
+    let token = localStorage.getItem('token');
+    headers.append('Authorization', token);
+    
+    let url = this.apiLien + dossier ;
+
+    console.log('data post json', data)
+    
+    return this.http
+             .post( url , data)
+             .map( (res) => {
+              this.hideLoadingAlert();
+              return res.json();
+            });
   }
 
   put(dossier, data){

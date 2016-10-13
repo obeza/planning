@@ -7,6 +7,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SidebarComponent implements OnInit {
 
+    private showConfigMenu = false
+
     private menu = [
         { 
             titre:"Accueil",
@@ -18,6 +20,16 @@ export class SidebarComponent implements OnInit {
             lien:"/planning/calendrier",
             active:true
         },
+        { 
+            titre:"Projets",
+            lien:"/planning/projects",
+            active:false
+        }
+          
+                        
+    ];
+
+    private menuConfiguration = [
         { 
             titre:"Historique",
             lien:"/planning/historique",
@@ -33,9 +45,7 @@ export class SidebarComponent implements OnInit {
             lien:"/planning/siteweb",
             active:true
         }
-          
-                        
-    ];
+    ]
 
     private menuAdmin = [
         { 
@@ -65,10 +75,14 @@ export class SidebarComponent implements OnInit {
     if ( this.userInfos ){
         if (this.userInfos['groupe']=='admin'){
             console.log('admin detect');
-            this.menu = this.menu.concat( this.menuAdmin );
+            this.menuConfiguration = this.menuConfiguration.concat( this.menuAdmin );
         }
     }
       
+  }
+
+  onConfigMenu(){
+      this.showConfigMenu = !this.showConfigMenu
   }
 
 }

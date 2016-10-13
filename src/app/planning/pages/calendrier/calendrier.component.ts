@@ -4,7 +4,7 @@ import {UnitOfTime, Moment} from 'moment';
 import {
   CalendarEvent,
   CalendarEventAction
-} from './../../../modules/angular2-calendar';
+} from 'angular2-calendar';
 import { RestService } from './../../../services/rest.service';
 import { UtilisateurService } from './../../../services/utilisateur.service';
 
@@ -41,6 +41,7 @@ export class CalendrierComponent implements OnInit {
   private selectedFormat
   private loadingFormats
   private reservationDialog:Boolean
+  private impossible:Boolean = false
   private formatsSelect = []
 
   private reservation = {
@@ -61,8 +62,6 @@ export class CalendrierComponent implements OnInit {
 
   ngOnInit() {
     console.log( moment().startOf('day').subtract(1, 'day').toDate() )
-    this.loadReservations()
-
     this.userId = this._user.user.id
     this.loadFavoris()
     this.loadComptes()
@@ -79,6 +78,8 @@ export class CalendrierComponent implements OnInit {
         this.formatsSelect = this.formats[0]
         this.selectedFormat = this.formatsSelect[0].id
         //this.loadFormats( this.selectedSite )
+        console.log('format', this.selectedFormat)
+        this.loadReservations(this.selectedFormat)
       })
   }
 
@@ -97,8 +98,8 @@ export class CalendrierComponent implements OnInit {
       })
   }*/
 
-  loadReservations(){
-    this._rest.get('reservations')
+  loadReservations(format){
+    this._rest.get('reservations/' + format)
       .subscribe( (res)=>{
         this.events = res.reservations.map( (res)=>{
           // format date de début
@@ -114,6 +115,7 @@ export class CalendrierComponent implements OnInit {
             res.color = colors.red;
           return res;
         })
+        console.log('events', this.events)
       });
   }
 
@@ -222,8 +224,46 @@ export class CalendrierComponent implements OnInit {
     this._rest.post('reservation', this.reservation)
       .then( (res)=>{
         console.log('res', res)
-        this.reservationDialog = false
+        if (res.msg=='ok'){
+          
+          let color = ''
+          if ( this.reservation['color'] =='option')
+            color = colors.blue
+          else
+            color = colors.red
+
+          let event = {
+                start: moment( this.reservation.start ).toDate(),
+                end: moment( this.reservation.end ).toDate(),
+                title: this.reservation.title,
+                color: color,
+                id: res.id,
+                actions: this.actions
+          }
+          this.events = [ ...this.events, event]
+          this.reservationDialog = false
+        }
+        if (res.msg=='impossible'){
+          this.impossible = true
+        }
+        
       })
-    
+
   }
+
+  onChangeformat($event){
+    console.log($event)
+    this.loadReservations($event)
+  }
+
 }
+
+/*
+  private events = [{
+    start: moment('2016-09-01').toDate(),
+    end: moment('2016-09-03').toDate(),
+    title: 'A 3 day event',
+    color: colors.red,
+    id:12,
+    actions: this.actions
+  }];*/

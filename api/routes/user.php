@@ -71,7 +71,7 @@ Flight::route('POST /user', function(){
             ->find_one();
 
         if ( empty($check) ){
-            $pass = hash( algo(), $data->passe);
+            $pass = sha1( $data->passe);
             // create user
             $user = ORM::for_table('users')->create();
             $user->prenom = $data->prenom;

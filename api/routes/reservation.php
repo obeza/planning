@@ -1,8 +1,9 @@
 <?
 
-Flight::route('GET /reservations', function(){
+Flight::route('GET /reservations/@format', function($format){
 
     $reserv = ORM::for_table('reservations')
+        ->where('format', $format)
         ->find_array();
 
     $msg = array(
@@ -16,7 +17,22 @@ Flight::route('GET /reservations', function(){
 
 Flight::route('POST /reservation', function(){
 
+    // check admin
+    checkToken();
+
     $data = getJson();
+
+    $check = ORM::for_table('reservations')
+        ->where('format', $data->format)
+        ->where_lte('start', $data->end)
+        ->where_gte('end', $data->start)
+        ->count();
+
+    if ( $check>2 ){
+        $msg = array('msg' => 'impossible' );
+        Flight::json($msg);
+        Flight::halt();
+    }
 
     $reserv = ORM::for_table('reservations')
         ->create();
@@ -31,7 +47,8 @@ Flight::route('POST /reservation', function(){
     $reserv->save();
 
     $msg = array(
-            'msg' => 'ok'         
+            'msg' => 'ok',
+            'id' => $reserv->id       
         );
     
     Flight::json($msg);

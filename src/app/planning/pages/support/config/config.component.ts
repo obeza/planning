@@ -101,11 +101,13 @@ export class ConfigComponent implements OnInit {
       })
   }
 
-  onChange($event){
+  onChangeSite($event){
     //this.configSelect.siteweb['id'] = $event;
     console.log("id", this.selectedWebId);
     
     this.loadFormats($event);
   }
+
+
 
 }
